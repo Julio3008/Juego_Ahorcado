@@ -1,4 +1,5 @@
 const words = [
+  // Alimentos
   "Carne",
   "Martillo",
   "Lavadora",
@@ -19,4 +20,82 @@ const words = [
   "Botella",
   "Hamburguesa",
   "Invierno",
+  "Elefante",
+  "Jirafa",
+  "Hipopotamo",
+  "Ballena",
+  "Serpiente",
+  "Cocodrilo",
+  "Mariposa",
+  "Lagartija",
+  "Dinosaurio",
+  "Pinguino",
+
+  // Profesiones
+  "Arquitecto",
+  "Bombero",
+  "Dentista",
+  "Electricista",
+  "Fontanero",
+  "Jardinero",
+  "Periodista",
+  "Profesor",
+  "Veterinario",
+
+  // Lugares
+  "Castillo",
+  "Biblioteca",
+  "Hospital",
+  "Universidad",
+  "Restaurante",
+  "Supermercado",
+  "Aeropuerto",
+  "Playa",
+  "Montaña",
+  "Bosque",
+
+  // Deportes
+  "Baloncesto",
+  "Ciclismo",
+  "Natacion",
+  "Atletismo",
+  "Voleibol",
+  "Gimnasia",
+  "Patinaje",
+  "Boxeo",
+  "Golf",
+
+  // Tecnología
+  "Computadora",
+  "Internet",
+  "Teclado",
+  "Monitor",
+  "Programa",
+  "Videojuego",
+  "Smartphone",
+  "Navegador",
+  "Aplicacion",
+
+  // Frutas y verduras
+  "Manzana",
+  "Platano",
+  "Zanahoria",
+  "Berenjena",
+  "Calabaza",
+  "Frambuesa",
+  "Mandarina",
+  "Espinacas",
+  "Aguacate",
+
+  // Palabras cortas (para nivel fácil)
+  "Pan",
+  "Luz",
+  "Mar",
+  "Paz",
+  "Red",
+  "Ojo",
+  "Pie",
+  "Sal",
+  "Voz",
+  "Flor",
 ];

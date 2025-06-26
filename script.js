@@ -20,27 +20,78 @@ let selectedWord;
 let usedLetters;
 let mistakes;
 let hits;
+let gameOver = false;
 
 const addLetter = (letter) => {
   const letterElement = document.createElement("span");
   letterElement.innerHTML = letter.toUpperCase();
+
+  // Agregar clase para indicar si la letra fue correcta o incorrecta
+  if (selectedWord.includes(letter)) {
+    letterElement.classList.add("correct");
+  } else {
+    letterElement.classList.add("incorrect");
+  }
+
   usedLettersElement.appendChild(letterElement);
 };
 
 const addBodyPart = (bodyPart) => {
   ctx.fillStyle = "#fff";
   ctx.fillRect(...bodyPart);
+
+  // Añadir efecto de "temblor" en el canvas cuando se comete un error
+  canvas.classList.add("shake");
+  setTimeout(() => {
+    canvas.classList.remove("shake");
+  }, 500);
 };
 
 const wrongLetter = () => {
   addBodyPart(bodyParts[mistakes]);
   mistakes++;
-  if (mistakes === bodyParts.length) endGame();
+  if (mistakes === bodyParts.length) {
+    showGameOverMessage(false);
+    endGame();
+  }
+};
+
+const showGameOverMessage = (won) => {
+  const messageElement = document.createElement("div");
+  messageElement.classList.add("game-message");
+
+  if (won) {
+    messageElement.classList.add("win-message");
+    messageElement.textContent = "¡GANASTE!";
+  } else {
+    messageElement.classList.add("lose-message");
+    messageElement.textContent = "¡PERDISTE!";
+
+    // Mostrar la palabra correcta
+    const correctWordElement = document.createElement("div");
+    correctWordElement.classList.add("correct-word");
+    correctWordElement.textContent = `La palabra era: ${selectedWord.join("")}`;
+    messageElement.appendChild(correctWordElement);
+  }
+
+  document.querySelector(".game-container").appendChild(messageElement);
+
+  // Remover el mensaje después de unos segundos cuando se reinicie el juego
+  startButton.addEventListener(
+    "click",
+    () => {
+      if (document.querySelector(".game-message")) {
+        document.querySelector(".game-message").remove();
+      }
+    },
+    { once: true }
+  );
 };
 
 const endGame = () => {
   document.removeEventListener("keydown", letterEvent);
   startButton.style.display = "block";
+  gameOver = true;
 };
 
 const correctLetter = (letter) => {
@@ -48,13 +99,20 @@ const correctLetter = (letter) => {
   for (let i = 0; i < children.length; i++) {
     if (children[i].innerHTML === letter) {
       children[i].classList.toggle("hidden");
+      children[i].classList.add("correct-letter");
       hits++;
     }
   }
-  if (hits === selectedWord.length) endGame();
+
+  if (hits === selectedWord.length) {
+    showGameOverMessage(true);
+    endGame();
+  }
 };
 
 const letterInput = (letter) => {
+  if (gameOver) return;
+
   if (selectedWord.includes(letter)) {
     correctLetter(letter);
   } else {
@@ -102,12 +160,20 @@ const startGame = () => {
   usedLetters = [];
   mistakes = 0;
   hits = 0;
+  gameOver = false;
   wordContainer.innerHTML = "";
   usedLettersElement.innerHTML = "";
   startButton.style.display = "none";
   drawHangMan();
   selectRandomWord();
   drawWord();
+
+  // Agregar una animación al iniciar el juego
+  canvas.classList.add("game-start");
+  setTimeout(() => {
+    canvas.classList.remove("game-start");
+  }, 700);
+
   document.addEventListener("keydown", letterEvent);
 };
 
